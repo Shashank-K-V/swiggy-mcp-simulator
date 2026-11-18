@@ -1,0 +1,6 @@
+services:
+  swiggy-simulator:
+    build: .
+    network_mode: host
+    restart: unless-stopped
+
