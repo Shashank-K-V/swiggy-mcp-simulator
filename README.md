@@ -43,6 +43,22 @@ PYTHONPATH=src python3 -m pytest
 PYTHONPATH=src python3 -m swiggy_simulator.check
 ```
 
+## Heavy multi-order test
+
+The repeatable load test creates different customers, addresses, restaurants, multi-item carts,
+quantities, variants, add-ons and coupons. Every order is then checked against its fresh cart,
+order details, history and tracking record.
+
+```bash
+PYTHONPATH=src python3 -m swiggy_simulator.load_test \
+  --reset --customers 20 --orders-per-customer 5 --workers 10
+```
+
+That example creates and verifies 100 simulated orders. The safety limits are 200 customers,
+20 orders per customer and 50 concurrent workers. Orders are distributed across placed,
+confirmed, preparing, picked-up, delivered and cancelled states. This remains local and
+payment-free.
+
 ## Test-only controls
 
 - `POST /admin/reset` with `{}` resets all users.
