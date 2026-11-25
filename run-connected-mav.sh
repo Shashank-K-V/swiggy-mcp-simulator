@@ -1,7 +1,14 @@
 #!/bin/sh
 set -eu
 
-MAV_PROJECT="/Users/shashank/Desktop/MAV-Ordering App"
+SCRIPT_DIRECTORY=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+MAV_PROJECT=${MAV_PROJECT:-"$SCRIPT_DIRECTORY/../mav-multi-agent-voice-ordering"}
+
+if [ ! -d "$MAV_PROJECT/src/mav_ordering" ]; then
+  echo "MAV was not found at: $MAV_PROJECT" >&2
+  echo "Set MAV_PROJECT to your MAV checkout before running this script." >&2
+  exit 1
+fi
 export MAV_MARKETPLACE_PROVIDER="swiggy-http-sim"
 export MAV_SWIGGY_SIM_URL="http://127.0.0.1:8790/food"
 export MAV_SWIGGY_SIM_USER="mav-ui-user"
